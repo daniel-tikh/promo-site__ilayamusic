@@ -1,0 +1,137 @@
+<script src="/include/js/jquery.js"></script>
+<script src="/include/js/fancybox.js"></script>
+<script src="/include/js/slick.js"></script>
+
+<script>
+
+<!-- Загрузка страницы -->
+
+$(window).on('load', function () {
+    var $preloader = $('#en_preloader'),
+        $svg_anm = $preloader.find('.en_preloader__svg');
+    $svg_anm.fadeOut();
+    $preloader.delay(500).fadeOut('slow');
+});
+
+<!-- Плавный переход по ссылкам -->
+
+$("nav").on('click', '[href*="#"]', function(e){
+    var w = screen.width;
+    if (w >= 1025) {
+        var fixed_offset = -20;
+    }
+    if (w <= 1024){
+        var fixed_offset = 0;
+    }
+    $('body, html').stop().animate({ scrollTop: $(this.hash).offset().top - fixed_offset}, 1200);
+    e.preventDefault();
+});
+
+$(document).ready(function() {
+    var w = screen.width;
+    var myHash = location.hash;
+    location.hash = '';
+    if(myHash[1] != undefined){
+        if (w >= 1025) {
+            var fixed_offset = -20;
+        }
+        if (w <= 1024){
+            var fixed_offset = 0;
+        }
+        $('html,body').animate({scrollTop: $(myHash).offset().top - fixed_offset}, 1200);
+        location.hash = myHash;
+    };
+});
+
+<!-- Sólo mantenlo en vertical и дополнительные стили для моб устройств -->
+
+$(function() {
+  if(/iPhone|iPad|iPod|Android|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    $('body').addClass('en_orientation');
+    $('.en_content__releases__foto').addClass('en_nobg');
+  };
+});
+
+<!-- Слайдеры -->
+
+$('#en_music').slick({
+	infinite: false,
+  speed: 800,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+	responsive: [
+		{
+			breakpoint: 1025,
+			settings: {
+				slidesToShow: 3
+			}
+		},
+		{
+			breakpoint: 781,
+			settings: {
+				slidesToShow: 2
+			}
+		},
+		{
+			breakpoint: 531,
+			settings: {
+				slidesToShow: 1
+			}
+		}
+	]
+});
+
+$('#en_video').slick({
+	infinite: false,
+  speed: 1600,
+  slidesToShow: 1
+});
+
+$('#en_merch').slick({
+	infinite: false,
+  speed: 1600,
+  slidesToShow: 2,
+	responsive: [
+		{
+			breakpoint: 1025,
+			settings: {
+				slidesToShow: 1
+			}
+		}
+	]
+});
+
+<!-- Сервис наверх -->
+
+$(function() {
+
+	$(window).scroll(function() {
+	if($(this).scrollTop()>100) {
+		$('.en_up').fadeIn();
+ 		} else {
+		$('.en_up').fadeOut();
+		}
+	});
+    
+	$('.en_up').click(function() {$('body,html').animate({scrollTop:0},1000);});
+    
+	if(/iPhone|iPad|iPod|Android|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+		$('.en_up > div').css('display','none');
+	};
+    
+});
+
+</script>
+
+<script>
+
+<!-- Размер окна (высота для просчёта мобильных браузеров) -->
+
+$(function() {
+
+	let vh = window.innerHeight * 0.01;
+	document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+});
+
+</script>
